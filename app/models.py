@@ -72,3 +72,14 @@ class Alunno(db.Model, Rappresentable):
 
     def __repr__(self) -> str:
         return Rappresentable.__repr__(self)
+        
+class Professore(db.Model, Rappresentable):
+    __tablename__ = 'professori'
+    id = db.Column(db.Integer, primary_key=True)
+    classe_concorso = db.Column(db.String(5))
+    utente_id = db.Column(db.Integer, db.ForeignKey('utenti.id'))
+    # alunni attraverso cattedra
+    # materie attraverso cattedra
+
+    def __repr__(self) -> str:
+        return Rappresentable.__repr__(self)
