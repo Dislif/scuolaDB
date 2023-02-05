@@ -83,3 +83,12 @@ class Professore(db.Model, Rappresentable):
 
     def __repr__(self) -> str:
         return Rappresentable.__repr__(self)
+
+class Genitore(db.Model, Rappresentable):
+    __tablename__ = 'genitori'
+    id = db.Column(db.Integer, primary_key=True)
+    utente_id = db.Column(db.Integer, db.ForeignKey('utenti.id'))
+    #figli = db.relationship('Alunno', secondary='alunno_genitore', back_populates='genitori', lazy='dynamic')
+
+    def __repr__(self) -> str:
+        return Rappresentable.__repr__(self)
