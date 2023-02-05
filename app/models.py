@@ -104,3 +104,13 @@ class Voto(db.Model, Rappresentable):
     
     def __repr__(self) -> str:
         return Rappresentable.__repr__(self)
+        
+class Cattedra(db.Model, Rappresentable):
+    __tablename__ = 'cattedre'
+    id = db.Column(db.Integer, primary_key=True)
+    materia_id = db.Column(db.Integer, db.ForeignKey('materie.id'))
+    classe_id = db.Column(db.Integer, db.ForeignKey('classi.id'))
+    professore_id = db.Column(db.Integer, db.ForeignKey('professori.id'))
+
+    def __repr__(self) -> str:
+        return Rappresentable.__repr__(self)
