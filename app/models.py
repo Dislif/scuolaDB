@@ -21,3 +21,16 @@ class Utente(db.Model, Rappresentable):
 
     def __repr__(self) -> str:
         return Rappresentable.__repr__(self)
+
+class Classe(db.Model, Rappresentable):
+    __tablename__ = 'classi'
+    id = db.Column(db.Integer, primary_key=True)
+    anno_corso = db.Column(db.SmallInteger)
+    sezione = db.Column(db.String(1))
+    anno_scolastico = db.Column(db.Integer) #db.String(7)    es: 2017/18
+    ordine = db.Column(db.String(255))
+    indirizzo = db.Column(db.String(255))
+    #alunni = db.relationship('Alunno', backref='classe', lazy='dynamic')
+
+    def __repr__(self) -> str:
+        return Rappresentable.__repr__(self)
