@@ -44,3 +44,20 @@ class Materia(db.Model, Rappresentable):
     
     def __repr__(self) -> str:
         return Rappresentable.__repr__(self)
+
+class Anagrafica(db.Model, Rappresentable):
+    __tablename__ = 'anagrafiche'
+    id = db.Column(db.Integer, primary_key=True)
+    cf = db.Column(db.String(20), unique=True)
+    nome = db.Column(db.String(64))
+    cognome = db.Column(db.String(64))
+    data_nascita = db.Column(db.Date)
+    sesso = db.Column(db.Boolean)
+    civico = db.Column(db.SmallInteger)
+    via = db.Column(db.String(255))
+    urbe = db.Column(db.String(255))
+    telefono = db.Column(db.String(10), unique=True)
+    utente_id = db.Column(db.Integer, db.ForeignKey('utenti.id'))
+
+    def __repr__(self) -> str:
+        return Rappresentable.__repr__(self)
