@@ -92,3 +92,15 @@ class Genitore(db.Model, Rappresentable):
 
     def __repr__(self) -> str:
         return Rappresentable.__repr__(self)
+
+class Voto(db.Model, Rappresentable):
+    __tablename__ = 'voti'
+    id = db.Column(db.Integer, primary_key=True)
+    valutazione = db.Column(db.Integer)
+    annotazione = db.Column(db.String(255), nullable=True)
+    data_valutazione = db.Column(db.Date)
+    alunno_id = db.Column(db.Integer, db.ForeignKey('alunni.id'))
+    materia_id = db.Column(db.Integer, db.ForeignKey('materie.id'))
+    
+    def __repr__(self) -> str:
+        return Rappresentable.__repr__(self)
