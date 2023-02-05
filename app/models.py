@@ -61,3 +61,14 @@ class Anagrafica(db.Model, Rappresentable):
 
     def __repr__(self) -> str:
         return Rappresentable.__repr__(self)
+
+class Alunno(db.Model, Rappresentable):
+    __tablename__ = 'alunni'
+    id = db.Column(db.Integer, primary_key=True)
+    classe_id = db.Column(db.Integer, db.ForeignKey('classi.id'))
+    utente_id = db.Column(db.Integer, db.ForeignKey('utenti.id'))
+    #genitori = db.relationship('Genitore', secondary='alunno_genitore', back_populates='figli', lazy='dynamic')
+    #voti = db.relationship('Voto', backref='alunno', lazy='dynamic')
+
+    def __repr__(self) -> str:
+        return Rappresentable.__repr__(self)
