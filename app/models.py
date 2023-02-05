@@ -114,3 +114,12 @@ class Cattedra(db.Model, Rappresentable):
 
     def __repr__(self) -> str:
         return Rappresentable.__repr__(self)
+
+class Parentela(db.Model, Rappresentable):
+    __tablename__ = 'parentele'
+    id = db.Column(db.Integer, primary_key=True)
+    alunno_id = db.Column(db.Integer, db.ForeignKey('classi.id'))
+    genitore_id = db.Column(db.Integer, db.ForeignKey('genitori.id'))
+
+    def __repr__(self) -> str:
+        return Rappresentable.__repr__(self)
