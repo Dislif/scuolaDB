@@ -34,3 +34,13 @@ class Classe(db.Model, Rappresentable):
 
     def __repr__(self) -> str:
         return Rappresentable.__repr__(self)
+
+class Materia(db.Model, Rappresentable):
+    __tablename__ = 'materie'
+    id = db.Column(db.Integer, primary_key=True)
+    nome = db.Column(db.String(255))
+    classe_concorso = db.Column(db.String(5))
+    #voti = db.relationship('Voto', backref='materia', lazy='dynamic')
+    
+    def __repr__(self) -> str:
+        return Rappresentable.__repr__(self)
