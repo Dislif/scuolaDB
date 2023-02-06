@@ -14,10 +14,11 @@ class Utente(db.Model, Rappresentable):
     #username = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
     hash_password = db.Column(db.String(255))
-    #alunno = db.relationship('Alunno', backref='utente', uselist=False, lazy='dynamic')
-    #profilo = db.relationship('Profilo', backref='utente', uselist=False, lazy='dynamic')
-    #professore = db.relationship('Professore', backref='utente', uselist=False, lazy='dynamic')
-    #genitore = db.relationship('Genitore', backref='utente', uselist=False, lazy='dynamic')
+
+    alunno = db.relationship('Alunno', backref='utente', uselist=False)
+    dati_anagrafici = db.relationship('Anagrafica', backref='utente', uselist=False)
+    professore = db.relationship('Professore', backref='utente', uselist=False)
+    genitore = db.relationship('Genitore', backref='utente', uselist=False)
 
     def __repr__(self) -> str:
         return Rappresentable.__repr__(self)
@@ -30,7 +31,9 @@ class Classe(db.Model, Rappresentable):
     anno_scolastico = db.Column(db.Integer) #db.String(7)    es: 2017/18
     ordine = db.Column(db.String(255))
     indirizzo = db.Column(db.String(255))
-    #alunni = db.relationship('Alunno', backref='classe', lazy='dynamic')
+
+    alunni = db.relationship('Alunno', backref='classe', lazy='dynamic')
+    materie = db.relationship('Materia', secondary='cattedre', back_populates='classi', lazy='dynamic')
 
     def __repr__(self) -> str:
         return Rappresentable.__repr__(self)
@@ -40,7 +43,9 @@ class Materia(db.Model, Rappresentable):
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(255))
     classe_concorso = db.Column(db.String(5))
-    #voti = db.relationship('Voto', backref='materia', lazy='dynamic')
+    
+    voti = db.relationship('Voto', backref='materia', lazy='dynamic')
+    classi = db.relationship('Classe', secondary='cattedre', back_populates='materie', lazy='dynamic')
     
     def __repr__(self) -> str:
         return Rappresentable.__repr__(self)
@@ -67,8 +72,9 @@ class Alunno(db.Model, Rappresentable):
     id = db.Column(db.Integer, primary_key=True)
     classe_id = db.Column(db.Integer, db.ForeignKey('classi.id'))
     utente_id = db.Column(db.Integer, db.ForeignKey('utenti.id'))
-    #genitori = db.relationship('Genitore', secondary='alunno_genitore', back_populates='figli', lazy='dynamic')
-    #voti = db.relationship('Voto', backref='alunno', lazy='dynamic')
+
+    genitori = db.relationship('Genitore', secondary='parentele', back_populates='figli', lazy='dynamic')
+    voti = db.relationship('Voto', backref='alunno', lazy='parentele')
 
     def __repr__(self) -> str:
         return Rappresentable.__repr__(self)
@@ -78,6 +84,9 @@ class Professore(db.Model, Rappresentable):
     id = db.Column(db.Integer, primary_key=True)
     classe_concorso = db.Column(db.String(5))
     utente_id = db.Column(db.Integer, db.ForeignKey('utenti.id'))
+
+    classi = db.relationship('Classe', secondary='cattedre', backref='professore', lazy='dynamic')
+    materie = db.relationship('Materia', secondary='cattedre', backref='professore', lazy='dynamic')
     # alunni attraverso cattedra
     # materie attraverso cattedra
 
@@ -88,7 +97,8 @@ class Genitore(db.Model, Rappresentable):
     __tablename__ = 'genitori'
     id = db.Column(db.Integer, primary_key=True)
     utente_id = db.Column(db.Integer, db.ForeignKey('utenti.id'))
-    #figli = db.relationship('Alunno', secondary='alunno_genitore', back_populates='genitori', lazy='dynamic')
+    
+    figli = db.relationship('Alunno', secondary='parentele', back_populates='genitori', lazy='dynamic')
 
     def __repr__(self) -> str:
         return Rappresentable.__repr__(self)
