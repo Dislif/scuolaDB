@@ -6,16 +6,20 @@
     <body>
 
         <form action="/signup" method="post">
-            <label for="username">Username: </label>
-            <input type="text" name="username" id="username">
-            
-            <label for="email">Email: </label>
-            <input type="email" name="email" id="email">
+            {{ form.hidden_tag() }}
 
-            <label for="password">Password: </label>
-            <input type="password" name="password" id="password">
-
-            <button type="submit">Sign up</button>
+            {% for field in form %}
+                {% if field.name == 'submit' %}
+                    {{ field() }}
+                {% elif field.name != 'csrf_token' %} 
+                    <div>
+                        {{ field.label }} 
+                        {{ field() }} <br> <br>
+                    </div>
+                {% else %}
+                    
+                {% endif %}
+            {% endfor %}
         </form>
 
     </body>

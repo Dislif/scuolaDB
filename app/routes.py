@@ -1,4 +1,5 @@
 from app import app
+import app.forms as fm
 from flask import render_template, request
 
 @app.route('/')
@@ -18,7 +19,8 @@ def signin():
     
 @app.route('/register')
 def register():
-    return render_template('registration.html')
+    form = fm.RegisterForm()
+    return render_template('registration.html', form=form, type=type)
 
 @app.route('/signup', methods=['POST'])
 def signup():
