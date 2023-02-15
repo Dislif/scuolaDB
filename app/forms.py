@@ -1,33 +1,33 @@
 from flask_wtf import FlaskForm
-import wtforms as wtf 
-import wtforms.validators as wtfv
+from wtforms import EmailField, PasswordField, BooleanField, SubmitField, StringField, DateField, IntegerField, TelField, RadioField
+from wtforms.validators import InputRequired, Email, NumberRange, Length, Optional, Regexp
 
 class LoginForm(FlaskForm):
-    email = wtf.EmailField('Email', validators=[wtfv.InputRequired(), wtfv.Email()])
-    password = wtf.PasswordField('Password', validators=[wtfv.InputRequired()])
-    remember_me = wtf.BooleanField('Remember Me')
-    submit = wtf.SubmitField('Sign In')
+    email = EmailField('Email', validators=[InputRequired(), Email()])
+    password = PasswordField('Password', validators=[InputRequired()])
+    remember_me = BooleanField('Remember Me')
+    submit = SubmitField('Sign In')
 
 class RegisterForm(FlaskForm):
-    nome = wtf.StringField('Nome', validators=[wtfv.InputRequired()])
-    cognome = wtf.StringField('Cognome', validators=[wtfv.InputRequired()])
-    data_nascita = wtf.DateField('Nascita', validators=[wtfv.InputRequired()])
-    sesso = wtf.RadioField('Sesso', choices=['Maschio', 'Femmina', 'Non-binario', 'Borsa frigo'], validators=[wtfv.InputRequired()])
-    via = wtf.StringField('Via', validators=[wtfv.InputRequired()])
-    civico = wtf.IntegerField('Civico', validators=[wtfv.InputRequired(), wtfv.NumberRange(min=1)])
-    urbe = wtf.StringField('Città', validators=[wtfv.InputRequired()])
-    telefono = wtf.TelField('Telefono', validators=[wtfv.InputRequired(), wtfv.Length(min=10, max=10), wtfv.Regexp(regex=r'^(\d{3} ?){2}\d{4}$')])
-    email = wtf.EmailField('Email', validators=[wtfv.InputRequired(), wtfv.Email()])
-    password = wtf.PasswordField('Password', validators=[wtfv.InputRequired()])
-    conf_pass = wtf.PasswordField('Conferma password', validators=[wtfv.InputRequired()])
-    submit = wtf.SubmitField('Sign up')
+    nome = StringField('Nome', validators=[InputRequired()])
+    cognome = StringField('Cognome', validators=[InputRequired()])
+    data_nascita = DateField('Nascita', validators=[InputRequired()])
+    sesso = RadioField('Sesso', choices=['Maschio', 'Femmina', 'Non-binario', 'Borsa frigo'], validators=[InputRequired()])
+    via = StringField('Via', validators=[InputRequired()])
+    civico = IntegerField('Civico', validators=[InputRequired(), NumberRange(min=1)])
+    urbe = StringField('Città', validators=[InputRequired()])
+    telefono = TelField('Telefono', validators=[InputRequired(), Length(min=10, max=10), Regexp(regex=r'^(\d{3} ?){2}\d{4}$')])
+    email = EmailField('Email', validators=[InputRequired(), Email()])
+    password = PasswordField('Password', validators=[InputRequired()])
+    conf_pass = PasswordField('Conferma password', validators=[InputRequired()])
+    submit = SubmitField('Sign up')
 
 class VotoForm(FlaskForm):
-    valutazione = wtf.IntegerField('Valutazione', validators=[wtfv.InputRequired(), wtfv.NumberRange(min=1, max=10)])
-    annotazione = wtf.StringField('Annotazione', validators=[wtfv.Optional()])
+    valutazione = IntegerField('Valutazione', validators=[InputRequired(), NumberRange(min=1, max=10)])
+    annotazione = StringField('Annotazione', validators=[Optional()])
 
 class ClassiForm(FlaskForm):
-    anno_corso = wtf.IntegerField('Anno corso', validators=[wtfv.NumberRange(min=1, max=5)])
-    sezione = wtf.StringField('Sezione', validators=[wtfv.Length(min=1, max=1)])
-    ordine = wtf.StringField('Ordine')
-    indirizzo = wtf.StringField('Indirizzo')
+    anno_corso = IntegerField('Anno corso', validators=[NumberRange(min=1, max=5)])
+    sezione = StringField('Sezione', validators=[Length(min=1, max=1)])
+    ordine = StringField('Ordine')
+    indirizzo = StringField('Indirizzo')
