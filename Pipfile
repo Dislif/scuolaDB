@@ -9,6 +9,7 @@ flask-sqlalchemy = "*"
 flask-migrate = "*"
 pymysql = "*"
 flask-wtf = "*"
+email-validator = "*"
 
 [dev-packages]
 

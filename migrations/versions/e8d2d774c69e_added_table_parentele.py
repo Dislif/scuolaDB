@@ -1,8 +1,8 @@
 """added table parentele
 
-Revision ID: c1d1bb5aa373
+Revision ID: e8d2d774c69e
 Revises: de2a6a7447aa
-Create Date: 2023-02-05 15:41:16.244884
+Create Date: 2023-02-15 22:04:42.519353
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'c1d1bb5aa373'
+revision = 'e8d2d774c69e'
 down_revision = 'de2a6a7447aa'
 branch_labels = None
 depends_on = None
@@ -22,7 +22,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('alunno_id', sa.Integer(), nullable=True),
     sa.Column('genitore_id', sa.Integer(), nullable=True),
-    sa.ForeignKeyConstraint(['alunno_id'], ['classi.id'], ),
+    sa.ForeignKeyConstraint(['alunno_id'], ['alunni.id'], ),
     sa.ForeignKeyConstraint(['genitore_id'], ['genitori.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
