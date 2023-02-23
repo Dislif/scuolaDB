@@ -23,14 +23,9 @@ def prova():
         return redirect(url_for('index'))
     return render_template('provaform.html', form=form)
     
-@app.route('/register')
+@app.route('/register', methods=['GET', 'POST'])
 def register():
     form = fm.RegisterForm()
+    if form.validate_on_submit():
+        return redirect(url_for('index'))
     return render_template('registration.html', form=form)
-
-@app.route('/signup', methods=['POST'])
-def signup():
-    u=request.form['username']
-    p=request.form['password']
-    e=request.form['email']
-    return render_template('ris.html', u=u, p=p, e=e)
