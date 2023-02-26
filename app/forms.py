@@ -1,15 +1,27 @@
 from flask_wtf import FlaskForm
-from wtforms import EmailField, PasswordField, BooleanField, SubmitField, StringField, DateField, IntegerField, TelField, RadioField
-from wtforms.validators import InputRequired, Email, NumberRange, Length, Optional, Regexp, EqualTo
+from wtforms import EmailField, PasswordField, SubmitField, StringField, DateField, IntegerField, TelField, RadioField
+from wtforms.validators import InputRequired, Email, NumberRange, Length, Optional, Regexp, EqualTo, ValidationError
 from app.assets.validation_regex import nome_reg, cognome_reg, via_reg, urbe_reg, telefono_reg, password_reg
 from app.assets.error_message import input_required_error, tel_error, str_error, via_error, civico_error, password_error, confirm_pass_error, email_error
+from app.models import Utente
 
 
 class LoginForm(FlaskForm):
-    email = EmailField('Email', validators=[InputRequired(), Email()])
-    password = PasswordField('Password', validators=[InputRequired()])
-    remember_me = BooleanField('Remember Me')
+    email = EmailField('Email', validators=[
+        InputRequired(message=input_required_error), 
+        Email(message=email_error)
+    ])
+    password = PasswordField('Password', validators=[
+        InputRequired(message=input_required_error), 
+        Regexp(regex=password_reg, message=password_error)
+    ])
+    #remember_me = BooleanField('Remember Me')
     submit = SubmitField('Sign In')
+
+    def validate_email(self, email):
+        user = Utente.query.filter_by(email=email.data).first()
+        if user is None:
+            raise ValidationError('Utente non registrato')
 
 class RegisterForm(FlaskForm):
     nome = StringField('Nome', validators=[
