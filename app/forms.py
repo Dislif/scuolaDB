@@ -69,6 +69,11 @@ class RegisterForm(FlaskForm):
     ])
     submit = SubmitField('Sign up')
 
+    def validate_email(self, email):
+        user = Utente.query.filter_by(email=email.data).first()
+        if user is not None:
+            raise ValidationError('Email già in uso, inserisci un altra email!')
+
 class VotoForm(FlaskForm):
     valutazione = IntegerField('Valutazione', validators=[InputRequired(), NumberRange(min=1, max=10)])
     annotazione = StringField('Annotazione', validators=[Optional()])
