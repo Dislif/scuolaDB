@@ -1,5 +1,6 @@
 from app import db 
 from sqlalchemy.inspection import inspect
+from werkzeug.security import generate_password_hash, check_password_hash
 
 class Rappresentable:
 
@@ -19,6 +20,12 @@ class Utente(db.Model, Rappresentable):
     dati_anagrafici = db.relationship('Anagrafica', backref='utente', uselist=False)
     professore = db.relationship('Professore', backref='utente', uselist=False)
     genitore = db.relationship('Genitore', backref='utente', uselist=False)
+
+    def set_password(self, password):
+        self.hash_password = generate_password_hash(password)
+    
+    def check_password(self, password):
+        return check_password_hash(self.hash_password, password)
 
     def __repr__(self) -> str:
         return Rappresentable.__repr__(self)
