@@ -1,8 +1,8 @@
 from flask_wtf import FlaskForm
 from wtforms import EmailField, PasswordField, SubmitField, StringField, DateField, IntegerField, TelField, RadioField
 from wtforms.validators import InputRequired, Email, NumberRange, Length, Optional, Regexp, EqualTo, ValidationError
-from app.assets.validation_regex import nome_reg, cognome_reg, via_reg, urbe_reg, telefono_reg, password_reg
-from app.assets.error_message import input_required_error, tel_error, str_error, via_error, civico_error, password_error, confirm_pass_error, email_error
+from app.assets.validation_regex import nome_reg, cognome_reg, indirizzo_reg, urbe_reg, telefono_reg, password_reg
+from app.assets.error_message import input_required_error, tel_error, str_error, indirizzo_error, password_error, confirm_pass_error, email_error
 from app.models import Utente
 
 
@@ -38,13 +38,9 @@ class RegisterForm(FlaskForm):
     sesso = RadioField('Sesso', choices=['Maschio', 'Femmina', 'Non-binario', 'Borsa frigo'], validators=[
         InputRequired(message=input_required_error)
     ])
-    via = StringField('Via', validators=[
+    indirizzo = StringField('Indirizzo', validators=[
         InputRequired(message=input_required_error), 
-        Regexp(regex=via_reg, message=via_error)
-    ])
-    civico = IntegerField('Civico', validators=[
-        InputRequired(message=input_required_error), 
-        NumberRange(min=1, message=civico_error)
+        Regexp(regex=indirizzo_reg, message=indirizzo_error)
     ])
     urbe = StringField('Città', validators=[
         InputRequired(message=input_required_error), 

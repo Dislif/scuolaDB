@@ -7,6 +7,6 @@ cognome_reg = r'^([A-ZÀÈÉÌÒÙ](\'[A-ZÀÈÉÌÒÙ])?[a-zàéèòùì]+(-| )
 
 urbe_reg = r'^[A-ZÀÈÉÌÒÙ][a-zàéèòùì]*(( |\')[A-ZÀÈÉÌÒÙ]?[a-zàéèòùì]+)* *$'
 
-via_reg = r'^(Viale|Via|Corso|Piazza|Piazzale) [A-ZÀÈÉÌÒÙ]?[a-zàéèòùì]+(( |\')[A-ZÀÈÉÌÒÙ]?[a-zàéèòùì]+)* *$'
+indirizzo_reg = r'^(Viale|Via|Corso|Piazza|Piazzale) [A-ZÀÈÉÌÒÙ]?[a-zàéèòùì]+(( |\')[A-ZÀÈÉÌÒÙ]?[a-zàéèòùì]+)* \d+ *$'
 
 password_reg = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$'

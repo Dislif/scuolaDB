@@ -5,9 +5,7 @@ tel_error = 'Il campo deve contenere solo numeri. In notazione 3-3-4 o 10 numeri
 
 str_error = 'Il campo non deve contenere numeri o caratteri speciali'
 
-via_error = str_error + ' e deve iniziare con uno tra i seguenti termini: Via, Viale, Corso, Piazza, Piazzale'
-
-civico_error = 'Il campo deve contenere un numero maggiore di 0'
+indirizzo_error = str_error + ', deve iniziare con uno tra i termini: Via, Viale, Corso, Piazza, Piazzale e terminare con il numero civico'
 
 email_error = 'Il campo deve contenere un email'
 
